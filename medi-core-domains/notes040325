@@ -21,7 +21,7 @@ id roleId permId name
 1  1      3      admin
 
 its voilation of second normal form
-2 solutions one is take join table, second third entity i.e. RoleToPermission
+2 solutions one is take @join table, second third entity i.e. RoleToPermission
 RoleToPermission
 doctorId 		permId		id(unique)
 1 				view		1
