@@ -58,7 +58,7 @@ verified then user will get activated i.e. status in mediuser table is true
 
 Q).when user will be created and when the user will be activated?
 
-
+third normal form : database table should not contains nullable columns
 
 
 
