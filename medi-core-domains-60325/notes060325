@@ -1,0 +1,25 @@
+
+h2console properties and how to open? :
+1.add the h2 dependency in pom file
+2.add the below properties in properties file
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2Console
+
+3.and run the application
+you will get the below in the console
+
+4.open the browser
+type : localhst:5001/h2Console
+where 5001 is the port number(you will change accordingly)
+
+H2 console available at '/h2Console'. Database available at 
+jdbc:h2:mem:08673dc6-092a-4001-aca3-ac7a49df8157
+5.enter the above in the url text filed in the browser i.e. and click on test connection :
+jdbc:h2:mem:08673dc6-092a-4001-aca3-ac7a49df8157
+
+if test successful, click on connect then you can able to access the h2 database and you can able see the tables
+
+
+Permission is the independent entity
+Role has a onetomany relation with permission
