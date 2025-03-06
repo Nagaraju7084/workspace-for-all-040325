@@ -23,3 +23,42 @@ if test successful, click on connect then you can able to access the h2 database
 
 Permission is the independent entity
 Role has a onetomany relation with permission
+
+
+simple profile :
+extended profile :
+we can use hibernate4.x iverse concept to maintian the audit infor
+
+Q).mediuser entity doesn't have password then will mediauthentication filled up with the username and password?
+A).in two cases it will be filled up with username and password
+1.user will be created by the administrator
+2.email will be trigger with the confirmation link that link will be saved in the cache for a period
+the user will click on the confirmation link from the email
+3.user will get activated when user will click on the confirmation link
+4.when user entered the password, confirm password then authentication table will be updated with
+the username, password
+this authentication table can referred later on time for the authentication when the user clicking
+on the authentication link / login button then the username, password the user entered always those entered
+username, password should have to check with this authentication table
+
+we will make onetoone relation to the authentication table with the userinfo / user table
+if the user will disabled after sometime then the user shouldn't be loggedin so we have to
+check these two flags i.e. isUserExisted and isUserActivated when authentication will happen
+
+in case any of the time the user was locked because of password wrong attempts might he did 3 attempts
+so account was locked, later when he will be tring to access after one hour or one day account
+shouldn't be loggedin until the user has to do a forgot password or reset the password or send an email
+to backend team to unlock / enable the account
+that time email will be triggered to the user with the change password link
+when the change password done successfully, we should have to activated the user
+
+
+user will be in the locked / disabled status, email will be triggered when the email will be
+verified then user will get activated i.e. status in mediuser table is true
+
+Q).when user will be created and when the user will be activated?
+
+
+
+
+
