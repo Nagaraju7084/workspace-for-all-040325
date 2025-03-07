@@ -1,9 +1,11 @@
 package com.medi.preclinic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -27,57 +29,52 @@ public class PermissionTest extends MediUserManagementService070325ApplicationTe
 	private RoleRepository roleRepository;
 	
 	@Test
-	public void createPermission() {
-		String name = "add";
-		String createdBy = "admin";
-		LocalDate localDate = LocalDate.now();
-		Date createdDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
-		Permission permission = new Permission(name, createdBy, createdDate, createdBy, createdDate);
-		permissionRepository.save(permission);
-		
-		assertNotNull(permission.getId());
-		
-		List<Permission> permissionsList = permissionRepository.findAll();
-		System.out.println(permissionsList.size());
-		assertNotNull(permissionsList);
-		
-		Role role = new Role();
-		role.setRoleName("mediAdmin");
-		
-		Set<PermissionToRole> permissionsSet = new HashSet<>();
-		
-		if(permissionsList != null && permissionsList.size() > 0) {
-			permissionsList.stream().forEach(perm ->{
-				PermissionToRole permissionToRole = new PermissionToRole();
-				permissionToRole.setPermission(perm);
-				permissionToRole.setRole(role);
-				permissionsSet.add(permissionToRole);
-			});
-		}
-		role.setPermissionsSet(permissionsSet);
-		roleRepository.save(role);
-		assertNotNull(role.getId());
-		
+	public void createRole() {
+	    // Step 1: Set up test data for permissions
+	    Permission readPermission = new Permission();
+	    readPermission.setPermissionName("READ");
+	    permissionRepository.save(readPermission); // Save to repository
+
+	    Permission writePermission = new Permission();
+	    writePermission.setPermissionName("WRITE");
+	    permissionRepository.save(writePermission);
+	    
+	    Permission viewPermission = new Permission();
+	    viewPermission.setPermissionName("VIEW");
+	    permissionRepository.save(viewPermission); // Save to repository
+
+	    Permission deletePermission = new Permission();
+	    deletePermission.setPermissionName("DELETE");
+	    permissionRepository.save(deletePermission); // Save to repository
+
+	    List<Permission> permissionsList = permissionRepository.findAll();
+
+	    // Step 2: Add assertions to validate permissions data
+	    assertNotNull("Permissions list is null", permissionsList.toString());
+	    assertEquals(4, permissionsList.size(), "Expected 4 permissions in the list");
+
+	    // Step 3: Create a new Role
+	    Role role = new Role();
+	    role.setRoleName("Admin");
+
+	    // Step 4: Create PermissionToRole relationships
+	    List<PermissionToRole> permissionsSet = new ArrayList<>();
+
+	    for (Permission permission : permissionsList) {
+	        PermissionToRole permissionToRole = new PermissionToRole();
+	        permissionToRole.setRole(role);
+	        permissionToRole.setPermission(permission);
+	        permissionsSet.add(permissionToRole);
+	    }
+
+	    // Associate the permissionsSet with the Role
+	    role.setPermissionsSet(permissionsSet);
+
+	    // Step 5: Save the Role with its permissions
+	    roleRepository.save(role);
+
+	    // Step 6: Validate the saved Role and its permissions
+	    assertNotNull("Role ID is null", String.valueOf(role.getId()));
+	    assertEquals(permissionsList.size(), role.getPermissionsSet().size(), "Permissions set size mismatch");
 	}
-	
-	/*
-	 * @Test public void createRole() { List<Permission> permissionsList =
-	 * permissionRepository.findAll(); System.out.println(permissionsList.size());
-	 * assertNotNull(permissionsList);
-	 * 
-	 * Role role = new Role(); role.setRoleName("mediAdmin");
-	 * 
-	 * Set<PermissionToRole> permissionsSet = new HashSet<>();
-	 * 
-	 * if(permissionsList != null && permissionsList.size() > 0) {
-	 * permissionsList.stream().forEach(permission ->{ PermissionToRole
-	 * permissionToRole = new PermissionToRole();
-	 * permissionToRole.setPermission(permission); permissionToRole.setRole(role);
-	 * permissionsSet.add(permissionToRole); }); }
-	 * role.setPermissionsSet(permissionsSet); roleRepository.save(role);
-	 * assertNotNull(role.getId());
-	 * 
-	 * }
-	 */
 }

@@ -1,12 +1,11 @@
 package com.medi.preclinic.domain;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "Role")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Role implements Serializable {
 
 	/**
@@ -26,13 +27,12 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Column(nullable = false, unique = true, updatable = true)
-	private String roleName;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-	private Set<PermissionToRole> permissionsSet;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String roleName;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PermissionToRole> permissionsSet = new ArrayList<>();
 
 }

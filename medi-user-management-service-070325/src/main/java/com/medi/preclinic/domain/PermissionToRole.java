@@ -10,10 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "PermissionToRole")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PermissionToRole implements Serializable {
 
 	/**
@@ -30,6 +32,5 @@ public class PermissionToRole implements Serializable {
 	
 	@ManyToOne
 	private Permission permission;
-	
 
 }
