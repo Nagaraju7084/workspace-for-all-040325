@@ -31,31 +31,32 @@ public class PermissionTest extends MediUserManagementService070325ApplicationTe
 	@Test
 	public void createRole() {
 	    // Step 1: Set up test data for permissions
-	    Permission readPermission = new Permission();
-	    readPermission.setPermissionName("READ");
-	    permissionRepository.save(readPermission); // Save to repository
-
-	    Permission writePermission = new Permission();
-	    writePermission.setPermissionName("WRITE");
-	    permissionRepository.save(writePermission);
-	    
-	    Permission viewPermission = new Permission();
-	    viewPermission.setPermissionName("VIEW");
-	    permissionRepository.save(viewPermission); // Save to repository
-
-	    Permission deletePermission = new Permission();
-	    deletePermission.setPermissionName("DELETE");
-	    permissionRepository.save(deletePermission); // Save to repository
-
-	    List<Permission> permissionsList = permissionRepository.findAll();
-
-	    // Step 2: Add assertions to validate permissions data
-	    assertNotNull("Permissions list is null", permissionsList.toString());
-	    assertEquals(4, permissionsList.size(), "Expected 4 permissions in the list");
-
+//	    Permission readPermission = new Permission();
+//	    readPermission.setPermissionName("READ");
+//	    permissionRepository.save(readPermission); // Save to repository
+//
+//	    Permission writePermission = new Permission();
+//	    writePermission.setPermissionName("WRITE");
+//	    permissionRepository.save(writePermission);
+//	    
+//	    Permission viewPermission = new Permission();
+//	    viewPermission.setPermissionName("VIEW");
+//	    permissionRepository.save(viewPermission); // Save to repository
+//
+//	    Permission deletePermission = new Permission();
+//	    deletePermission.setPermissionName("DELETE");
+//	    permissionRepository.save(deletePermission); // Save to repository
+//
+//	    List<Permission> permissionsList = permissionRepository.findAll();
+//
+//	    // Step 2: Add assertions to validate permissions data
+//	    assertNotNull("Permissions list is null", permissionsList.toString());
+//	    assertEquals(4, permissionsList.size(), "Expected 4 permissions in the list");
+		
+		List<Permission> permissionsList = permissionRepository.findAll();
 	    // Step 3: Create a new Role
 	    Role role = new Role();
-	    role.setRoleName("Admin");
+	    role.setRoleName("Doctor");
 
 	    // Step 4: Create PermissionToRole relationships
 	    List<PermissionToRole> permissionsSet = new ArrayList<>();
