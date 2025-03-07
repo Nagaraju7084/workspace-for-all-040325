@@ -107,4 +107,13 @@ id patient dept doctor  date 	 time 	message  status
 
 upto here all domains with their physical relation completed
 
+bounded context speaking about is each and every micro services should have the artifacts or dependencies or components or libraries should be within the micro service only, the business functionality should have to expose to via restful endpoint and all should be abstract behind the endpoint
+bounded context is talking about identifying the boundary of the micro services
+
+spring boot giving the process boundary i.e. when we run any spring boot application,
+it should run as a process meaning a process boundary is created and also spring boot is giving
+the servlet container, which is also executes with the same process boundary and also we are
+taking components, artifacts, dependencies, libraries, etc with in the same process boundary
+designing of user management :
+
 
