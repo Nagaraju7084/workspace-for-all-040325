@@ -61,4 +61,50 @@ Q).when user will be created and when the user will be activated?
 third normal form : database table should not contains nullable columns
 
 
+070325 :
+
+doctorschedule :
+String name;
+
+available 	days
+id			day
+1 			sunday
+2 			monday
+3 			tueseday
+
+doctorschedule table structure :
+
+id	doctId	starttime	endtime	message	scheduledstatus
+1	1
+
+doctor_availability :
+id	schedeulId	available_days available_time
+1	1			1				1
+2	1			2				1
+3	2			5				2
+4	3			2				3
+5	3			4				1
+
+available_days :
+id			day
+1 			sunday
+2 			monday
+3 			tueseday
+
+available_time :
+id start_time end_time
+1	10am		5pm
+2	1pm			8pm
+3	9am			4pm
+
+doctorid will be created in the doctorschedule table
+then primary key id of the doctorschedule table is mapped to the our
+own created table doctoravailability
+
+appointment :
+id patient dept doctor  date 	 time 	message  status
+1   1       1     1    25-08-21  	 	 paid    active 
+
+upto here all domains with their physical relation completed
+
 

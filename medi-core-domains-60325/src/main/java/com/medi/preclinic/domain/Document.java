@@ -35,7 +35,7 @@ public class Document implements Serializable {
 	
 	private String title;				//document title such as birth certifcate, marksheet, etc
 	private String description;			//document information
-	private String documentPath;		//to store the path as url to upload the document in s3
+	private String documentPath;		//to store the path as url to upload the document in s3, later this path will be replaced with s3 url
 	
 	private String docKey;				//document is secured with the password / key
 	
