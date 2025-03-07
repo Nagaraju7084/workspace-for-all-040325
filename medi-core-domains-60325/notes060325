@@ -114,6 +114,6 @@ spring boot giving the process boundary i.e. when we run any spring boot applica
 it should run as a process meaning a process boundary is created and also spring boot is giving
 the servlet container, which is also executes with the same process boundary and also we are
 taking components, artifacts, dependencies, libraries, etc with in the same process boundary
-designing of user management :
+designing of user management : go to medi-user-management-service-070325 project
 
 
