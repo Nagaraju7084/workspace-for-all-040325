@@ -1,0 +1,44 @@
+
+to design the medi-user-manangement-service-070325, apply the bounded context on core domains :
+medi-user-manangement-service-070325 :
+copy the required domains from the medi-core-domains-060325 project
+
+step 1 :
+only two domains talking about the user-management are : mediuser, usertype, role, permission,
+permissiontorole
+
+authentication-service will do take the username and password and make a communication to the
+medi-user-manangement-service, get the user authenticated and generates the token, gives that token
+back to the underlying application
+
+step 2 :
+create the repositories for mediuser, role, permission, permissiontorole, usertype
+
+step 3 :
+write the unit testcases to create the permissions, role with permissions, user with role assigned
+
+
+properties in properties file :
+spring.application.name=medi-user-management
+server.port=6001
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2Console
+
+#not suggestable in production
+spring.jpa.generate-ddl=true
+spring.jpa.show-sql=true
+
+spring.jpa.properties.hibernate.format_sql=true
+
+# h2 data source configurations
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url==jdbc:h2:mem:medi-user-management-service
+spring.datasource.username=sa
+spring.datasource.password=
+
+its always better to take classes as immutable classes by using parameterized constructor
+
+conversion of localdate to date :
+LocalDate localDate = LocalDate.now();
+Date createdDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
