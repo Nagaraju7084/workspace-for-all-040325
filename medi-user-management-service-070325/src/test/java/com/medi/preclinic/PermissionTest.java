@@ -50,22 +50,26 @@ public class PermissionTest extends MediUserManagementService070325ApplicationTe
 //	    assertEquals(4, permissionsList.size(), "Expected 4 permissions in the list");
 		List<Permission> permissionsList = permissionRepository.findAll();
 	    // Step 3: Create a new Role
-	    Role role = new Role();
-	    role.setRoleName("Doctor");
+	    Role nurseRole = new Role();
+	    nurseRole.setRoleName("Nurse");
 	    // Step 4: Create PermissionToRole relationships
 	    List<PermissionToRole> permissionsSet = new ArrayList<>();
-	    for (Permission permission : permissionsList) {
-	        PermissionToRole permissionToRole = new PermissionToRole();
-	        permissionToRole.setRole(role);
-	        permissionToRole.setPermission(permission);
-	        permissionsSet.add(permissionToRole);
-	    }
+	    permissionsList.stream()
+        .filter(permission -> permission.getPermissionName().equals("VIEW")
+        		||
+        		permission.getPermissionName().equals("WRITE"))
+        .forEach(permission -> {
+            PermissionToRole permissionToRole = new PermissionToRole();
+            permissionToRole.setRole(nurseRole);
+            permissionToRole.setPermission(permission);
+            permissionsSet.add(permissionToRole);
+        });
 	    // Associate the permissionsSet with the Role
-	    role.setPermissionsSet(permissionsSet);
+	    nurseRole.setPermissionsSet(permissionsSet);
 	    // Step 5: Save the Role with its permissions
-	    roleRepository.save(role);
+	    roleRepository.save(nurseRole);
 	    // Step 6: Validate the saved Role and its permissions
-	    assertNotNull("Role ID is null", String.valueOf(role.getId()));
-	    assertEquals(permissionsList.size(), role.getPermissionsSet().size(), "Permissions set size mismatch");
+	    assertNotNull("Role ID is null", String.valueOf(nurseRole.getId()));
+	    assertEquals(2, nurseRole.getPermissionsSet().size(), "Permissions set size mismatch");
 	}
 }
