@@ -12,9 +12,9 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "Permission")
+@Table(name = "MediPermission")
 @Data
-public class Permission implements Serializable {
+public class MediPermission implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +23,6 @@ public class Permission implements Serializable {
 	private int id;
 	
 	@Column(nullable = false, updatable = true)
-	private String permissionName;
+	private String mediPermissionName;
 
 }

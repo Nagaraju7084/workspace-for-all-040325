@@ -27,8 +27,8 @@ public class MediUserDto implements Serializable {
 	private String shortBiography;
 	private boolean status;
 	
-	private RoleDto role;
+	private MediRoleDto mediRoleDto;
 	
-	private UserTypeDto userType;
+	private MediUserTypeDto mediUserTypeDto;
 
 }

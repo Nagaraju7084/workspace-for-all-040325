@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.medi.preclinic.domain.MediPermissionToMediRole;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RoleDto implements Serializable {
+public class MediRoleDto implements Serializable {
 
 	/**
 	 * 
@@ -18,8 +20,8 @@ public class RoleDto implements Serializable {
 	
     private Long id;
 
-    private String roleName;
+    private String mediRoleName;
 
-    private List<PermissionDto> permissionsSet = new ArrayList<>();
+    private List<MediPermissionDto> mediPermissionsSet = new ArrayList<>();
 
 }

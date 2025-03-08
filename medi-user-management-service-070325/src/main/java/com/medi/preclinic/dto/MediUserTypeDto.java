@@ -6,13 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class PermissionDto implements Serializable {
+@NoArgsConstructor // to satisfy the pojo definition we taken noargconstructor annotation here
+public class MediUserTypeDto implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	
-	private String permissionName;
+	private String mediUserType;
 
 }

@@ -41,13 +41,13 @@ public class MediUser implements Serializable {
 	private boolean status;
 	
 	@OneToOne
-	private Role role;
+	private MediRole mediRole;
 	
 	//@OneToOne
 	//private Address postalAddress;
 	
 	@OneToOne
-	private UserType userType;
+	private MediUserType mediUserType;
 	
 	//user can contains n number of documents and also get many notifications
 	//here third table will be generated

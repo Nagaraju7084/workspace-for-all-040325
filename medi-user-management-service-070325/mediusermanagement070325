@@ -46,5 +46,41 @@ Date createdDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toIn
 session 16, session 17, session 18 are not there, no sessions
 session 19 : ec2, docker, etc
 session 20 : re started the user-management-project
+session 21 : 
+service layer started and define the signatures or funcationalities of the classes such as mediusertype, role, permission, mediuser and developed the dto for that service classes, in earlier we got satckoverflow error because of set and second problem is voilation of unique constraint exception this is caused because unique attribute in the column annotation due to these two reasons we were not able to insert the permissions to the role
 
-service layer started and define the signatures or funcationalities of the classes such as mediusertype, role, permission, mediuser and developed the dto for that service classes, in earlier we got satckoverflow error because of set and second problem is voilation of unique constraint exception this is caused because unique attribute in the column annotation due to these two reasons we were not able to insert the permissions to the role 
+session 22 : 080325 :
+@Service = facade / delegate the business service but @Service will not handle the many responsibilities like @Controller
+rather just acts as a business delegate class as service class
+@Controller will handle data binding, data validation, validations exceptions messages handling, mapping
+
+setter injection : testing is very easy with the partial values
+constructor injection : we should pass all the values and will make our implementation as an immutable
+
+if the properties names are same for both dto and domain then use
+BeanUtils.copyProperties(source, target) given by spring
+
+dtoToDomain :
+BeanUtils.copyProperties(dto, domain);
+domainToDto :
+BeanUtils.copyProperties(domain, dto);
+
+controller to service interaction :
+bean / dto / vo
+service to domain interaction :
+domain / entity / model
+
+//selected words / statements in capital
+cntrl + shift + x 
+
+to do provisioning and deprovisioning, understand the database model first
+medirole is an independent entity which contains only roles
+
+mediuser have a column to hold the roleid i.e. a role is assigning to the user but 
+BeanUtils.copyProperties(source, target); -> won't copy the different data types and also complex types
+different data types :
+in the domains class - dob type is Date but in the bean class dob type is String
+in the domain class - mediRole secondary association is there but in mediRoleDto is there that is dto association but not entity association 
+
+//vertical words selection
+alt + shift + a

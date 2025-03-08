@@ -2,21 +2,20 @@ package com.medi.preclinic.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 @Entity
-@Table(name = "PermissionToRole")
+@Table(name = "MediUserType")
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PermissionToRole implements Serializable {
+public class MediUserType implements Serializable {
 
 	/**
 	 * 
@@ -27,10 +26,7 @@ public class PermissionToRole implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@ManyToOne
-	private Role role;
-	
-	@ManyToOne
-	private Permission permission;
+	@Column(nullable = false, unique = true, updatable = true)
+	private String mediUserType;
 
 }

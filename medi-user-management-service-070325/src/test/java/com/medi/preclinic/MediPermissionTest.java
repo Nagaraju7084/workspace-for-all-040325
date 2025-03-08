@@ -9,19 +9,19 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.medi.preclinic.domain.Permission;
-import com.medi.preclinic.domain.PermissionToRole;
-import com.medi.preclinic.domain.Role;
-import com.medi.preclinic.repository.PermissionRepository;
-import com.medi.preclinic.repository.RoleRepository;
+import com.medi.preclinic.domain.MediPermission;
+import com.medi.preclinic.domain.MediPermissionToMediRole;
+import com.medi.preclinic.domain.MediRole;
+import com.medi.preclinic.repository.MediPermissionRepository;
+import com.medi.preclinic.repository.MediRoleRepository;
 
-public class PermissionTest extends MediUserManagementService070325ApplicationTests {
+public class MediPermissionTest extends MediUserManagementService070325ApplicationTests {
 	
 	@Autowired
-	private PermissionRepository permissionRepository;
+	private MediPermissionRepository permissionRepository;
 	
 	@Autowired
-	private RoleRepository roleRepository;
+	private MediRoleRepository roleRepository;
 	
 	@Test
 	public void createRole() {
@@ -48,28 +48,28 @@ public class PermissionTest extends MediUserManagementService070325ApplicationTe
 //	    // Step 2: Add assertions to validate permissions data
 //	    assertNotNull("Permissions list is null", permissionsList.toString());
 //	    assertEquals(4, permissionsList.size(), "Expected 4 permissions in the list");
-		List<Permission> permissionsList = permissionRepository.findAll();
+		List<MediPermission> permissionsList = permissionRepository.findAll();
 	    // Step 3: Create a new Role
-	    Role nurseRole = new Role();
-	    nurseRole.setRoleName("Nurse");
+	    MediRole nurseRole = new MediRole();
+	    nurseRole.setMediRoleName("Nurse");
 	    // Step 4: Create PermissionToRole relationships
-	    List<PermissionToRole> permissionsSet = new ArrayList<>();
+	    List<MediPermissionToMediRole> permissionsSet = new ArrayList<>();
 	    permissionsList.stream()
-        .filter(permission -> permission.getPermissionName().equals("VIEW")
+        .filter(permission -> permission.getMediPermissionName().equals("VIEW")
         		||
-        		permission.getPermissionName().equals("WRITE"))
+        		permission.getMediPermissionName().equals("WRITE"))
         .forEach(permission -> {
-            PermissionToRole permissionToRole = new PermissionToRole();
-            permissionToRole.setRole(nurseRole);
-            permissionToRole.setPermission(permission);
+            MediPermissionToMediRole permissionToRole = new MediPermissionToMediRole();
+            permissionToRole.setMediRole(nurseRole);
+            permissionToRole.setMediPermission(permission);
             permissionsSet.add(permissionToRole);
         });
 	    // Associate the permissionsSet with the Role
-	    nurseRole.setPermissionsSet(permissionsSet);
+	    nurseRole.setMediPermissionsSet(permissionsSet);
 	    // Step 5: Save the Role with its permissions
 	    roleRepository.save(nurseRole);
 	    // Step 6: Validate the saved Role and its permissions
 	    assertNotNull("Role ID is null", String.valueOf(nurseRole.getId()));
-	    assertEquals(2, nurseRole.getPermissionsSet().size(), "Permissions set size mismatch");
+	    assertEquals(2, nurseRole.getMediPermissionsSet().size(), "Permissions set size mismatch");
 	}
 }

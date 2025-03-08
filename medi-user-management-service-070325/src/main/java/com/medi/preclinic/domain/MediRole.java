@@ -16,10 +16,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "Role")
+@Table(name = "MediRole")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Role implements Serializable {
+public class MediRole implements Serializable {
 
 	/**
 	 * 
@@ -30,9 +30,9 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String roleName;
+    private String mediRoleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PermissionToRole> permissionsSet = new ArrayList<>();
+    private List<MediPermissionToMediRole> mediPermissionsSet = new ArrayList<>();
 
 }

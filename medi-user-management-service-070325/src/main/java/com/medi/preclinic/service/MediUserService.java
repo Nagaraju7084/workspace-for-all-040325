@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.medi.preclinic.dto.MediUserDto;
 
-public interface UserProfileService {
+public interface MediUserService {
 	
 	//whatever the data coming from / captured in controller layer as it is should send to service layer
 	//data should not be modify in the middle so that we taken final to the parameter of the method
