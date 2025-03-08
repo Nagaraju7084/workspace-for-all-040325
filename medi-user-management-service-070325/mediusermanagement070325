@@ -44,3 +44,7 @@ LocalDate localDate = LocalDate.now();
 Date createdDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 session 16, session 17, session 18 are not there, no sessions
+session 19 : ec2, docker, etc
+session 20 : re started the user-management-project
+
+service layer started and define the signatures or funcationalities of the classes such as mediusertype, role, permission, mediuser and developed the dto for that service classes, in earlier we got satckoverflow error because of set and second problem is voilation of unique constraint exception this is caused because unique attribute in the column annotation due to these two reasons we were not able to insert the permissions to the role 
