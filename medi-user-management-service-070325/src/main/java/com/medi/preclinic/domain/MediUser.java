@@ -33,7 +33,7 @@ public class MediUser implements Serializable {
 	private String userId;
 	private String mail;
 	
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@Temporal(value = TemporalType.DATE)
 	private Date dob;
 	
 	private String gender;

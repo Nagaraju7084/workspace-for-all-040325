@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.medi.preclinic.domain.MediPermissionToMediRole;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +16,7 @@ public class MediRoleDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-    private Long id;
+    private int id;
 
     private String mediRoleName;
 

@@ -84,3 +84,9 @@ in the domain class - mediRole secondary association is there but in mediRoleDto
 
 //vertical words selection
 alt + shift + a
+
+session 23 : 080325 :
+
+case 1 : while creating a user type the role is auto provisioning while user is creating the admin i.e. createmediuser method
+case 2 : while updating the user the admin will promote the user role with different role
+
