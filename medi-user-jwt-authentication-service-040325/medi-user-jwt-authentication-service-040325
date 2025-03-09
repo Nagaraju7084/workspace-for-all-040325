@@ -1,0 +1,50 @@
+090325 :
+
+project location : F:\workspace for all 040325\medi-user-jwt-authentication-service-040325
+swagger access : http://localhost:5003/swagger-ui.html
+
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.
+		authorizeRequests()
+		.antMatchers("/api/**") //allow all the requests with are starting with /api
+		//because the user registration shouldn't go through the security and user authentication code
+		//also should not go through the security, it should be an openapi(jwt) where we should have to submit the username
+		//and password and get the token 
+		.permitAll(); //upto here enough, no need to add formabased and basic becuase we want go with the token based security
+		//to test this, first register the user with roles, to do this,
+		//we have sql script and this script will load at application startup
+		//we have to add one property(below one)in application.properties file to execute the sql script automatically
+		//and dump the data into database that property is
+		//#if we want intialize datasource always regardless of its type
+		//spring.datasource.initialization-mode=always
+		//spring.datasource.data=classpath:schema.sql
+	}
+
+
+
+#if we want intialize datasource always regardless of its type
+spring.datasource.initialization-mode=always
+spring.datasource.data=classpath:schema.sql
+note : -(hyphen) are not allowed in the schema.sql script ex : medi-jwt-service040325 -> not allowed rather, we should use _(underscore)
+i.e. medi_jwt_service040325 -> this is allowed
+
+//cntl + z
+undo
+//cntrl + y
+redo
+
+we inserted the permissions through schema.sql script but once after user is created
+that permissions should have to map
+this(permission, role, roletopermission data insertion has done through schema.sql script)data we should have to enter the user
+user1 who is going to creating should have the permissions 1 to 4
+user2 who is going to creating should have the permissions 1 to 4
+
+before creating the user first insert the data into the usertype table as
+id usertype
+1  Admin
+2  Doctor
+3  Patient
+create the user1 and user2 via swagger
+
+
