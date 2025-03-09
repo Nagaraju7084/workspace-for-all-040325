@@ -33,7 +33,7 @@ public class UserRole implements Serializable {
 	@Column(nullable = false, unique = true, updatable = true)
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRole")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userRole")
 	private Set<UserRoleToPermission> permissonsSet = new HashSet<>();
 
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,7 +25,17 @@ public class CustomSecurityConfigJwtAuthnProject extends WebSecurityConfigurerAd
 		.antMatchers(HttpMethod.POST,"/api/users")
 		.permitAll() //still we are getting the 403 - forbidden, path = /api/users
 		.and()
-		.csrf().disable(); //now user is creating after csrf disabled
+		.csrf().disable()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.formLogin().disable()
+		.httpBasic();
+//now user is creating after csrf disabled, the below code is optional
+//		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//		.and()
+//		.formLogin().disable()
+//		.httpBasic();
+//now that user should have to go through the authentication
 	}
 	
 	@Override

@@ -56,7 +56,23 @@ create the user1 and user2 via swagger
 		.and()
 		.csrf().disable(); //now user is creating after csrf disabled
 	}
+
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.
+		authorizeRequests()
+		.antMatchers(HttpMethod.POST,"/api/users")
+		.permitAll() //still we are getting the 403 - forbidden, path = /api/users
+		.and()
+		.csrf().disable();
+//now user is creating after csrf disabled, the below code is optional
+//		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//		.and()
+//		.formLogin().disable()
+//		.httpBasic();
+	}
 	
+		
 json payload for user creation :
 request :
 {
@@ -100,5 +116,37 @@ response :
     "userType": "Doctor",
     "id": 2
   }
-}	
+}
+
+//now that user should have to go through the authentication
+there will be one more api going to write that will take username and password and gives the jwt token
+	
+steps to develop jwt toke based security :
+1.add the jwt dependencies(jjwt) - done
+2.userrepository - done
+3.userservice - done
+4.usercontroler to register, authenticate, validate token - done upto register(create)
+now authenticate and validate token writing before writing this, write jwt token service
+because authenticate user will authenticate the user, after authentication should have to
+call the jwt token service to create / generate the token
+
+jwt token contains claims(user identities) requires username and authorities
+all security aspects are under config folder
+@Service - business delegate
+the library jjwt from io.jsonwebtoke will generate the jwt token
+
+all the constants(tokenexpiry, apikey, requestheadername, prefix, issuer) will write in serviceutil class
+tokenexpiry = 1800000L -> milliseconds 30 minutes -> half an one hour
+apikey to generate the digital signature = “ any application name “
+issuer = “ application name “
+requestheadername = “ Authorization “
+prefix = “ Bearer “
+
+when the authentication-service will authenticate the user credentials and will create the token and will display that the user should have been authenticated successfully
+after authentication success then only the token will generate
+
+write the api which will take username and password in mediuserresource class to authenticate to authenticate the user
+
+
+
 
