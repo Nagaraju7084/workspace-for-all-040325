@@ -22,8 +22,10 @@ public class CustomSecurityConfigJwtAuthnProject extends WebSecurityConfigurerAd
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
 		authorizeRequests()
-		.antMatchers(HttpMethod.POST,"/api/users")
-		.permitAll() //still we are getting the 403 - forbidden, path = /api/users
+		.antMatchers(HttpMethod.POST,"/api/users") //except this creation of users
+		.permitAll()
+		.anyRequest() //any request / endpoint will come
+		.authenticated() //that should be authenticated
 		.and()
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
