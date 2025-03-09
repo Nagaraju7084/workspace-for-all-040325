@@ -21,6 +21,7 @@ public class MediUserResource {
 	
 	@PostMapping("/users")
 	public MediUserBean createUser(@RequestBody MediUserBean userBean) {
+		System.out.println("user is creating");
 		return userProfileService.createUser(userBean);
 	}
 }

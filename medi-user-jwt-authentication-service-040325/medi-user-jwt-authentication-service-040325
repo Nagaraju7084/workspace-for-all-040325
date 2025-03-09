@@ -47,4 +47,58 @@ id usertype
 3  Patient
 create the user1 and user2 via swagger
 
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.
+		authorizeRequests()
+		.antMatchers(HttpMethod.POST,"/api/users")
+		.permitAll() //still we are getting the 403 - forbidden, path = /api/users
+		.and()
+		.csrf().disable(); //now user is creating after csrf disabled
+	}
+	
+json payload for user creation :
+request :
+{
+  "firstName": "charles",
+  "lastName": "james",
+  "userId": "charlesJ",
+  "email": "charles@gmail.com",
+  "password": "charles",
+  "dob": "12/09/1999",
+  "gender": "male",
+  "shortBiography": "founder",
+  "status": true,
+  "role": {
+    "name": "Doctor",
+    "id": 2
+  },
+  "userType": {
+    "userType": "Doctor",
+    "id": 2
+  }
+}
+
+response :
+{
+  "id": 1,
+  "firstName": "charles",
+  "lastName": "james",
+  "userId": "charlesJ",
+  "email": "charles@gmail.com",
+  "password": "$2a$10$UqmbClZGInUOSNKP27LDeeAweZ.B51v1uqqhoG0Cd6LjY.3.6QtZe",
+  "dob": "Sun Sep 12 00:00:00 IST 1999",
+  "gender": "male",
+  "shortBiography": "founder",
+  "status": true,
+  "role": {
+    "name": "Doctor",
+    "permissionsSet": [],
+    "id": 2
+  },
+  "userType": {
+    "userType": "Doctor",
+    "id": 2
+  }
+}	
 
