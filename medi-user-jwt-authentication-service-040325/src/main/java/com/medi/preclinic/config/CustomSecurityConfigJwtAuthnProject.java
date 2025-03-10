@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.medi.preclinic.filter.MediCustomFilterJwtAuthnProject;
 
 @Configuration
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -28,6 +31,7 @@ public class CustomSecurityConfigJwtAuthnProject extends WebSecurityConfigurerAd
 		.authenticated() //that should be authenticated
 		.and()
 		.csrf().disable()
+		.addFilterBefore(mediCustomFilterJwtAuthnProject(), BasicAuthenticationFilter.class)
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
 		.formLogin().disable()
@@ -48,5 +52,10 @@ public class CustomSecurityConfigJwtAuthnProject extends WebSecurityConfigurerAd
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public MediCustomFilterJwtAuthnProject mediCustomFilterJwtAuthnProject() {
+		return new MediCustomFilterJwtAuthnProject();
 	}
 }

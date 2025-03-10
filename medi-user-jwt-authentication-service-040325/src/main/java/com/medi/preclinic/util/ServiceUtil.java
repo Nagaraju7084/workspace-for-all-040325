@@ -2,6 +2,7 @@ package com.medi.preclinic.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 
 
@@ -16,7 +17,7 @@ public class ServiceUtil {
 	
 	//constants used for jwt token generation
 	public static final long JWT_TOKEN_EXPIRY = 1800000L; //in seconds
-	public static final String JWT_API_KEY = "token-service"; 
+	public static final String JWT_API_KEY = new String(Base64.getEncoder().encode("token-service".getBytes()));
 	public static final String JWT_TOKEN_ISSUER = "token-service";
 	public static final String JWT_REQUEST_HEADER_NAME = "Authorization";
 	public static final String JWT_TOKEN_PREFIX = "Bearer ";
