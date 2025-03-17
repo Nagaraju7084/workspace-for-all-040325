@@ -22,4 +22,28 @@ public class MediRoleDto implements Serializable {
 
     private List<MediPermissionDto> mediPermissionsSet = new ArrayList<>();
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMediRoleName() {
+		return mediRoleName;
+	}
+
+	public void setMediRoleName(String mediRoleName) {
+		this.mediRoleName = mediRoleName;
+	}
+
+	public List<MediPermissionDto> getMediPermissionsSet() {
+		return mediPermissionsSet;
+	}
+
+	public void setMediPermissionsSet(List<MediPermissionDto> mediPermissionsSet) {
+		this.mediPermissionsSet = mediPermissionsSet;
+	}
+    
 }

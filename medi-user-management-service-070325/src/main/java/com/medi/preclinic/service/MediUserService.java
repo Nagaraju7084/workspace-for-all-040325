@@ -13,6 +13,7 @@ public interface MediUserService {
 	public MediUserDto updateUser(final MediUserDto mediUserDto);
 	public MediUserDto deleteUser(final MediUserDto mediUserDto);
 	public MediUserDto deleteUserById(final String mediUserDtoId);
+	public MediUserDto findUserById(String userId);
 	
 	public List<MediUserDto> findAllUsers();
 	

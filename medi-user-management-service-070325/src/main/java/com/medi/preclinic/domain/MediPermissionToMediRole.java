@@ -33,4 +33,28 @@ public class MediPermissionToMediRole implements Serializable {
 	@ManyToOne
 	private MediPermission mediPermission;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public MediRole getMediRole() {
+		return mediRole;
+	}
+
+	public void setMediRole(MediRole mediRole) {
+		this.mediRole = mediRole;
+	}
+
+	public MediPermission getMediPermission() {
+		return mediPermission;
+	}
+
+	public void setMediPermission(MediPermission mediPermission) {
+		this.mediPermission = mediPermission;
+	}
+	
 }

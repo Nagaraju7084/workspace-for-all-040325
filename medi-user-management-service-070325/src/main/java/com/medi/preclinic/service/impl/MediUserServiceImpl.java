@@ -65,6 +65,11 @@ public class MediUserServiceImpl implements MediUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public MediUserDto findUserById(String userId) {
+		return null;
+	}
 
 	/*
 	 * there are two cases in provisioning
@@ -154,4 +159,5 @@ public class MediUserServiceImpl implements MediUserService {
 		}
 		return mediUserDto;
 	}
+
 }

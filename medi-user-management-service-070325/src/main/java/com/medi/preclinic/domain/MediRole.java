@@ -32,7 +32,31 @@ public class MediRole implements Serializable {
 
     private String mediRoleName;
 
-    @OneToMany(mappedBy = "mediRole", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "mediRole", cascade = CascadeType.ALL)
     private List<MediPermissionToMediRole> mediPermissionsSet = new ArrayList<>();
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMediRoleName() {
+		return mediRoleName;
+	}
+
+	public void setMediRoleName(String mediRoleName) {
+		this.mediRoleName = mediRoleName;
+	}
+
+	public List<MediPermissionToMediRole> getMediPermissionsSet() {
+		return mediPermissionsSet;
+	}
+
+	public void setMediPermissionsSet(List<MediPermissionToMediRole> mediPermissionsSet) {
+		this.mediPermissionsSet = mediPermissionsSet;
+	}
+    
 }

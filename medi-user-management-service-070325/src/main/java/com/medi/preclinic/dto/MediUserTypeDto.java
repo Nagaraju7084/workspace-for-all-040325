@@ -18,4 +18,20 @@ public class MediUserTypeDto implements Serializable {
 	
 	private String mediUserType;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMediUserType() {
+		return mediUserType;
+	}
+
+	public void setMediUserType(String mediUserType) {
+		this.mediUserType = mediUserType;
+	}
+	
 }
