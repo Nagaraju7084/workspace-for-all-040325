@@ -30,6 +30,25 @@ public class MediUserDto implements Serializable {
 	private MediRoleDto mediRoleDto;
 	
 	private MediUserTypeDto mediUserTypeDto;
+	
+	private boolean accountLocked = true;
+	private boolean accountDisabled = true;
+
+	public boolean isAccountLocked() {
+		return accountLocked;
+	}
+
+	public void setAccountLocked(boolean accountLocked) {
+		this.accountLocked = accountLocked;
+	}
+
+	public boolean isAccountDisabled() {
+		return accountDisabled;
+	}
+
+	public void setAccountDisabled(boolean accountDisabled) {
+		this.accountDisabled = accountDisabled;
+	}
 
 	public int getMediUserId() {
 		return mediUserId;

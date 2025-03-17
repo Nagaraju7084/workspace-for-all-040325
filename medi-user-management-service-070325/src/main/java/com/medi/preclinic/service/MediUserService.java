@@ -11,8 +11,8 @@ public interface MediUserService {
 	public MediUserDto createUser(final MediUserDto mediUserDto);
 	public MediUserDto createUserById(final String mediUserDtoId);
 	public MediUserDto updateUser(final MediUserDto mediUserDto);
-	public MediUserDto deleteUser(final MediUserDto mediUserDto);
-	public MediUserDto deleteUserById(final String mediUserDtoId);
+	public List<MediUserDto> deleteUser(final MediUserDto mediUserDto);
+	public List<MediUserDto> deleteUserById(final String mediUserDtoId);
 	public MediUserDto findUserById(String userId);
 	
 	public List<MediUserDto> findAllUsers();

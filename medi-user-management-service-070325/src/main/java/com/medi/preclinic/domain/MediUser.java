@@ -42,6 +42,9 @@ public class MediUser implements Serializable {
 	private String shortBiography;
 	private boolean status;
 	
+	private boolean accountLocked = true;
+	private boolean accountDisabled = true;
+	
 	@OneToOne
 	private MediRole mediRole;
 	

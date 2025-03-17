@@ -1,8 +1,13 @@
 package com.medi.preclinic.service.impl;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +15,12 @@ import org.springframework.stereotype.Service;
 import com.medi.preclinic.domain.MediRole;
 import com.medi.preclinic.domain.MediUser;
 import com.medi.preclinic.domain.MediUserType;
+import com.medi.preclinic.domain.VerificationCode;
 import com.medi.preclinic.dto.MediRoleDto;
 import com.medi.preclinic.dto.MediUserDto;
 import com.medi.preclinic.dto.MediUserTypeDto;
 import com.medi.preclinic.repository.MediUserRepository;
+import com.medi.preclinic.repository.VerificationCodeRepository;
 import com.medi.preclinic.service.MediRoleService;
 import com.medi.preclinic.service.MediUserService;
 import com.medi.preclinic.service.MediUserTypeService;
@@ -30,45 +37,54 @@ public class MediUserServiceImpl implements MediUserService {
 	
 	@Autowired
 	private MediUserTypeService mediUserTypeService;
+	
+	@Autowired
+	private VerificationCodeRepository verificationCodeRepository;
 
 	@Override
 	public MediUserDto createUser(MediUserDto mediUserDto) {
-		return domainToDto(mediUserRepository.save(dtoToDomain(mediUserDto)));
+		MediUser userDomain = mediUserRepository.save(dtoToDomain(mediUserDto));
+		if(userDomain != null && userDomain.getMediUserId() >0) {
+			//generate a verification code
+			VerificationCode vCode = new VerificationCode();
+			vCode.setCode(RandomStringUtils.randomAlphabetic(15));
+			vCode.setCodeGeneratedDate(new Date());
+			vCode.setMediUserId(userDomain);
+			verificationCodeRepository.save(vCode);
+		}
+		return domainToDto(userDomain);
 	}
 
 	@Override
 	public MediUserDto createUserById(String mediUserDtoId) {
-		// TODO Auto-generated method stub
-		return null;
+		return domainToDto(mediUserRepository.findById(Integer.valueOf(mediUserDtoId)).get());
 	}
 
 	@Override
 	public MediUserDto updateUser(MediUserDto mediUserDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return domainToDto(mediUserRepository.save(dtoToDomain(mediUserDto)));
 	}
 
 	@Override
-	public MediUserDto deleteUser(MediUserDto mediUserDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MediUserDto> deleteUser(MediUserDto mediUserDto) {
+		mediUserRepository.delete(dtoToDomain(mediUserDto));
+		return findAllUsers();
 	}
 
 	@Override
-	public MediUserDto deleteUserById(String mediUserDtoId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MediUserDto> deleteUserById(String mediUserDtoId) {
+		mediUserRepository.findById(Integer.valueOf(mediUserDtoId));
+		return findAllUsers();
 	}
 
 	@Override
 	public List<MediUserDto> findAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return mediUserRepository.findAll().stream().map(user -> domainToDto(user)).collect(Collectors.toList());
 	}
 	
 	@Override
 	public MediUserDto findUserById(String userId) {
-		return null;
+		return domainToDto(mediUserRepository.findById(Integer.valueOf(userId)).get());
 	}
 
 	/*
