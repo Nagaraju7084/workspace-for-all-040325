@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import com.medi.preclinic.repository.VerificationCodeRepository;
 import com.medi.preclinic.service.MediRoleService;
 import com.medi.preclinic.service.MediUserService;
 import com.medi.preclinic.service.MediUserTypeService;
+import com.medi.preclinic.util.OutboundCommunicator;
 import com.medi.preclinic.util.ServiceUtil;
 
 @Service
@@ -42,8 +44,9 @@ public class MediUserServiceImpl implements MediUserService {
 	private VerificationCodeRepository verificationCodeRepository;
 
 	@Override
-	public MediUserDto createUser(MediUserDto mediUserDto) {
+	public MediUserDto createUser(MediUserDto mediUserDto, String callbackUrl) {
 		MediUser userDomain = mediUserRepository.save(dtoToDomain(mediUserDto));
+		JSONObject confirmAccountJsonBody = new JSONObject();
 		if(userDomain != null && userDomain.getMediUserId() >0) {
 			//generate a verification code
 			VerificationCode vCode = new VerificationCode();
@@ -51,7 +54,19 @@ public class MediUserServiceImpl implements MediUserService {
 			vCode.setCodeGeneratedDate(new Date());
 			vCode.setMediUserId(userDomain);
 			verificationCodeRepository.save(vCode);
+			confirmAccountJsonBody.put("userVerifyCode", vCode.getCode());
 		}
+		
+		//we have to call the notification-service to send an email
+		//who will be loggedin to the system to do this activity
+		//that person(we can get from security context holder) name will come as from
+		confirmAccountJsonBody.put("from", "");
+		confirmAccountJsonBody.put("to", new String[] {userDomain.getMail()});
+		confirmAccountJsonBody.put("emailTemplateType", "AccountConfirmation");
+		confirmAccountJsonBody.put("callbackUrl", callbackUrl);
+		OutboundCommunicator.sendConfirmAccountEmail(confirmAccountJsonBody.toString());
+		
+		
 		return domainToDto(userDomain);
 	}
 

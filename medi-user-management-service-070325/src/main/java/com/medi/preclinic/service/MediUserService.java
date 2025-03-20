@@ -8,7 +8,7 @@ public interface MediUserService {
 	
 	//whatever the data coming from / captured in controller layer as it is should send to service layer
 	//data should not be modify in the middle so that we taken final to the parameter of the method
-	public MediUserDto createUser(final MediUserDto mediUserDto);
+	public MediUserDto createUser(final MediUserDto mediUserDto, String callbackUrl);
 	public MediUserDto createUserById(final String mediUserDtoId);
 	public MediUserDto updateUser(final MediUserDto mediUserDto);
 	public List<MediUserDto> deleteUser(final MediUserDto mediUserDto);

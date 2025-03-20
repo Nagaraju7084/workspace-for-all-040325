@@ -2,6 +2,8 @@ package com.medi.preclinic.resource;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medi.preclinic.dto.MediUserDto;
@@ -36,14 +37,18 @@ public class UserProfileResource {
 	
 	//@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@PostMapping(value = "/users")
-	public MediUserDto createUser(@RequestBody MediUserDto mediUserDto) {
-		return mediUserService.createUser(mediUserDto);
+	public MediUserDto createUser(@RequestBody MediUserDto mediUserDto, HttpServletRequest request) {
+		String callbackUrl = request.getRequestURL().toString();
+		callbackUrl = callbackUrl+"/verifyUser";
+		return mediUserService.createUser(mediUserDto, callbackUrl);
 	}
 	
 	//@RequestMapping(value = "/users", method = RequestMethod.PUT)
 	@PutMapping(value = "/users")
-	public MediUserDto updateUser(@RequestBody MediUserDto mediUserDto) {
-		return mediUserService.updateUser(mediUserDto);
+	public MediUserDto updateUser(@RequestBody MediUserDto mediUserDto, HttpServletRequest request) {
+		String callbackUrl = request.getRequestURL().toString();
+		callbackUrl = callbackUrl+"/verifyUser";
+		return mediUserService.createUser(mediUserDto, callbackUrl);
 	}
 	
 	//@RequestMapping(value = "/users", method = RequestMethod.DELETE)
@@ -56,5 +61,16 @@ public class UserProfileResource {
 	@DeleteMapping(value = "/users/{userId}")
 	public List<MediUserDto> deleteUserByUserId(@PathVariable("userId") String userId){
 		return mediUserService.deleteUserById(userId);
+	}
+	
+	@GetMapping(value = "/users/verifyUser/{code}")
+	public void verifyUser(@PathVariable("code") String code, HttpServletRequest request) {
+		System.out.println(request.getServletPath()+"\tservlet path");
+		System.out.println(request.getContextPath()+"\tcontext path");
+		System.out.println(request.getRequestURL().toString()+"\trequest url");
+		System.out.println(request.getScheme()+"\tget scheme");
+		System.out.println(request.getServerPort()+"\tserver port");
+		System.out.println(request.getServerName()+"\tserver name");
+		System.out.println("verify user code is:\t" + code);
 	}
 }

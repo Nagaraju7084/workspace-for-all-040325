@@ -52,7 +52,7 @@ public class MediUserServiceTest extends MediUserManagementService070325Applicat
 	@Disabled
 	@Test
 	public void createMediUser() {
-		MediUserDto meUserDto = mediUserService.createUser(mediUserDto);
+		MediUserDto meUserDto = mediUserService.createUser(mediUserDto, null);
 		assertNotNull(meUserDto);
 		assertNotNull(meUserDto.getMediUserId());
 	}
