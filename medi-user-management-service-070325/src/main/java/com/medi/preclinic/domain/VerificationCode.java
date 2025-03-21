@@ -3,6 +3,8 @@ package com.medi.preclinic.domain;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class VerificationCode {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@Column(nullable = false, unique = true)
 	private String code;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -35,6 +38,9 @@ public class VerificationCode {
 	
 	private boolean codeVerified = false;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private MediUser mediUser;
+	
 	public boolean isCodeVerified() {
 		return codeVerified;
 	}
@@ -42,9 +48,6 @@ public class VerificationCode {
 	public void setCodeVerified(boolean codeVerified) {
 		this.codeVerified = codeVerified;
 	}
-
-	@OneToOne
-	private MediUser mediUserId;
 
 	public int getId() {
 		return id;
@@ -86,12 +89,12 @@ public class VerificationCode {
 		this.codeValidity = codeValidity;
 	}
 
-	public MediUser getMediUserId() {
-		return mediUserId;
+	public MediUser getMediUser() {
+		return mediUser;
 	}
 
-	public void setMediUserId(MediUser mediUserId) {
-		this.mediUserId = mediUserId;
+	public void setMediUser(MediUser mediUser) {
+		this.mediUser = mediUser;
 	}
-
+	
 }

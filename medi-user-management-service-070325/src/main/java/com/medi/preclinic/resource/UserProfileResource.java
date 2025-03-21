@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,7 +66,7 @@ public class UserProfileResource {
 	}
 	
 	@GetMapping(value = "/users/verifyUser/{code}")
-	public void verifyUser(@PathVariable("code") String code, HttpServletRequest request) {
+	public ResponseEntity<String> verifyUser(@PathVariable("code") String code, HttpServletRequest request) {
 		System.out.println(request.getServletPath()+"\tservlet path");
 		System.out.println(request.getContextPath()+"\tcontext path");
 		System.out.println(request.getRequestURL().toString()+"\trequest url");
@@ -72,5 +74,10 @@ public class UserProfileResource {
 		System.out.println(request.getServerPort()+"\tserver port");
 		System.out.println(request.getServerName()+"\tserver name");
 		System.out.println("verify user code is:\t" + code);
+		
+		JSONObject userVerifiedMessage = new JSONObject();
+		boolean isUserVerified = mediUserService.verifyUser(code);
+		userVerifiedMessage.put("isUserVerified", isUserVerified);
+		return ResponseEntity.ok(userVerifiedMessage.toString());
 	}
 }

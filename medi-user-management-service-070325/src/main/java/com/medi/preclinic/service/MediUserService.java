@@ -14,8 +14,9 @@ public interface MediUserService {
 	public List<MediUserDto> deleteUser(final MediUserDto mediUserDto);
 	public List<MediUserDto> deleteUserById(final String mediUserDtoId);
 	public MediUserDto findUserById(String userId);
-	
 	public List<MediUserDto> findAllUsers();
+	
+	public boolean verifyUser(String verificationCode);
 	
 	//provisioning and deprovisioning operations
 	public MediUserDto provisioningUser(String userId, String roleId); //allocating a particular role(roleId) to a particular user(userId)

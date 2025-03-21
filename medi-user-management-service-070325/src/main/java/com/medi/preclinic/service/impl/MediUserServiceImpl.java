@@ -52,7 +52,7 @@ public class MediUserServiceImpl implements MediUserService {
 			VerificationCode vCode = new VerificationCode();
 			vCode.setCode(RandomStringUtils.randomAlphabetic(15));
 			vCode.setCodeGeneratedDate(new Date());
-			vCode.setMediUserId(userDomain);
+			vCode.setMediUser(userDomain);
 			verificationCodeRepository.save(vCode);
 			confirmAccountJsonBody.put("userVerifyCode", vCode.getCode());
 		}
@@ -190,5 +190,31 @@ public class MediUserServiceImpl implements MediUserService {
 		}
 		return mediUserDto;
 	}
+
+	@Override
+	public boolean verifyUser(String verificationCode) {
+		boolean isCodeVerified = false;
+		VerificationCode verificationDomain = verificationCodeRepository.findByVerificationCode(verificationCode); //step 1 : get the verification domain
+		if(!verificationDomain.isCodeVerified()) { //setp 2 : if the given code is verified then only enter into the loop
+			MediUser mediDomainUser = verificationDomain.getMediUser(); //step 3 : get the user
+			if(mediDomainUser != null && mediDomainUser.getMail() != null) { //step 4 : mediDomainUser not null and that user mail also not null
+				mediDomainUser.setAccountDisabled(false); //then only set the account disabled = false and
+				mediDomainUser.setAccountLocked(false);//set the account locked = false
+				verificationDomain.setCodeVerified(true);
+				verificationDomain.setCodeActiveDate(new Date());
+				verificationDomain = verificationCodeRepository.save(verificationDomain);
+				if(verificationDomain.isCodeVerified()) {
+					isCodeVerified = true;
+				}
+			}
+		}else {
+			//throw a user friendly exception saying that
+			//isCodeVerified user is already verified
+			isCodeVerified = true;
+		}
+		return isCodeVerified;
+	}
+	
+	
 
 }

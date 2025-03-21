@@ -1,5 +1,8 @@
 package com.medi.preclinic.util;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,9 +19,12 @@ public class OutboundCommunicator {
 	//public static String sendAccountConfirmEmail(String from, String[] to, String[] bcc, String emailType, String callBackUrl, String verifyCode) {}
 	public static String sendConfirmAccountEmail(String notificationData) {
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> responseJson = restTemplate.postForEntity("http://localhost:5011/api/v1.0/notifications", notificationData, String.class);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(notificationData, headers); // using this, we are sending the data
+		ResponseEntity<String> responseJson = restTemplate.postForEntity(ServiceUtil.NOTIFICATION_SERVICE_URL, entity, String.class); //later on time we will make static constants into dynamic using yml file / properties file
 		System.out.println(responseJson.getBody());
-		return null;
+		return responseJson.getBody();
 	}
 
 }
