@@ -33,7 +33,7 @@ public class NotificationResource {
 	private TemplateEngine templateEngine;
 	
 	//@PostMapping("/notifications")
-	@RequestMapping(value = "/notifications", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@RequestMapping(value = "/notifications", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public NotificationBean sendEmailNotification(@RequestBody NotificationBean notificationBean) {
 		/**
 		 * to whoome message to be send
