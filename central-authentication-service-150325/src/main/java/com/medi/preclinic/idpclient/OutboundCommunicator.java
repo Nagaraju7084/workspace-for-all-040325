@@ -72,6 +72,34 @@ public class OutboundCommunicator {
 		return null;
 	}
 	
+	public String getUserInfo(String accessToken) {
+//		String passPhrase = clientId+":"+clientSecret;
+//		String encodedHash = new String(Base64.getEncoder().encode(passPhrase.getBytes()));
+//		
+//		String authnBody = "grant_type="+grantType+"&username="+username+"&password="+password+"&scope="+scope;
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer "+accessToken);
+		//headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+		
+		HttpEntity requestData = new HttpEntity(headers);
+		//call ignoreCertificates() here
+		ignoreCertificates();
+		//we can use any of the java client instead of resttemplate
+		ResponseEntity<String> iamResponse = restTemplate.getForEntity(userEndpoint, String.class);
+		if(iamResponse.getStatusCodeValue()==HttpStatus.OK.value()) {
+			System.out.println(iamResponse.getBody()); //extract the token and return back
+			String respBody = iamResponse.getBody(); //json response, to parse it, we nee org.json maven dependency
+
+			JSONObject jsonResponseBody = new JSONObject(respBody);
+			//String accessToken = jsonResponseBody.getString("access_token");
+
+			return jsonResponseBody.toString();
+		}
+		
+		return null;
+	}
+	
 	//testcase will fail due to the ssl certificate while writing test case so to disable ssl, we need the below method
 	//https://stackoverflow.com/questions/4072585/disabling-ssl-certificate-validation-in-spring-resttemplate
 	private void ignoreCertificates() {

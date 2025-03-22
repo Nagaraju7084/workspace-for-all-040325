@@ -9,11 +9,11 @@ import com.medi.preclinic.idpclient.OutboundCommunicator;
 public class MediAuthenServiceImpl implements MediAuthenService {
 	
 	@Autowired
-	private OutboundCommunicator outBoundCommunicator;
+	private OutboundCommunicator iamClient;
 
 	@Override
 	public String authenticate(String username, String password) {
-		return outBoundCommunicator.authenticateId(username, password);
+		return iamClient.authenticateId(username, password);
 	}
 
 	@Override
@@ -30,8 +30,7 @@ public class MediAuthenServiceImpl implements MediAuthenService {
 
 	@Override
 	public String viewUserProfile(String accessToken) {
-		// TODO Auto-generated method stub
-		return null;
+		return iamClient.getUserInfo(accessToken);
 	}
 
 }
