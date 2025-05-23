@@ -1,0 +1,5 @@
+
+o
+java:S62042"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8Á³¾£å2
+G
+java:S2275="*An 'int' is expected rather than a String.(ÄäÝ¢8Ï³¾£å2

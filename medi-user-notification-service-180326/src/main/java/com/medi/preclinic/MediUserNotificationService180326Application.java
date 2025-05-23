@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -65,6 +66,10 @@ public class MediUserNotificationService180326Application {
         templateResolver.setCacheable(false);
         return templateResolver;
     }
-
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 }
