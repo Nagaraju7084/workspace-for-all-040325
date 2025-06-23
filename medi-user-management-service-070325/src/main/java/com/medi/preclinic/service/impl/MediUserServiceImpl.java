@@ -149,7 +149,7 @@ public class MediUserServiceImpl implements MediUserService {
 		return domainToDto(mediUserRepository.save(databaseMediUser));
 	}
 	
-	private MediUser dtoToDomain(MediUserDto mediUserDto) {
+	public MediUser dtoToDomain(MediUserDto mediUserDto) {
 		MediUser mediUser = new MediUser();
 		BeanUtils.copyProperties(mediUserDto, mediUser);
 		try {
@@ -174,7 +174,7 @@ public class MediUserServiceImpl implements MediUserService {
 		return mediUser;
 	}
 	
-	private MediUserDto domainToDto(MediUser mediUser) {
+	public MediUserDto domainToDto(MediUser mediUser) {
 		MediUserDto mediUserDto = new MediUserDto();
 		BeanUtils.copyProperties(mediUser, mediUserDto);
 		mediUserDto.setDob(mediUser.getDob().toString());
